@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dist/output.css">
+    <script src="https://kit.fontawesome.com/227a57dfb0.js" crossorigin="anonymous"></script>
+    <script src="./node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <main class="flex justify-center items-center">
+        <div class="w-[600px]" id="reader"></div>
+        <div class="text-center text-xl" id="result"></div>
+    </main>
+
+    <div class="flex w-screen h-20 justify-center items-center bottom-6 fixed">
+        <div class="flex justify-between items-center px-16 w-[90vw] h-full bg-yellow-400 rounded-full">
+            <div class="text-2xl"><i class="fa-solid fa-house"></i></div>
+            <div class="text-4xl mb-20 bg-yellow-500 px-6 py-5 rounded-full shadow-xl shadow-yellow-600">
+                <a href="#">
+                    <i class="fa-solid fa-qrcode"></i>
+                </a>
+            </div>
+            <div class="text-2xl"><i class="fa-solid fa-user"></i></div>
+        </div>
+    </div>
+
+<script>
+    const scanner = new Html5QrcodeScanner('reader', {
+        qrbox: {
+            width : 250,
+            height : 250,
+        },
+        fps: 20,
+    });
+
+    scanner.render(success, error);
+
+    function success(result){
+        document.getElementById('result').innerHTML =  `
+            <h2>Success!</h2>
+            <p><a href="${result}">${result}</a></p>
+        `;
+        
+        scanner.clear();
+        document.getElementById('reader').remove();
+    }
+
+    function error(err){
+        console.error(err);
+    }
+
+</script>
+
+</body>
+</html>
