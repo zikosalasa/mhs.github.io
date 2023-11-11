@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="dist/output.css">
     <script src="https://kit.fontawesome.com/227a57dfb0.js" crossorigin="anonymous"></script>
+    <script src="./node_modules/html5-qrcode/html5-qrcode.min.js"></script>
     <title>Document</title>
 </head>
 <body>
 
-    <h1>QR Code Scanner</h1>
-    <video id="qr-video" width="300" height="200" autoplay></video>
-    <p id="qr-result">Hasil QR code akan muncul di sini</p>
+    <main class="flex justify-center items-center">
+        <div class="w-[600px]" id="reader"></div>
+        <div class="text-center text-xl" id="result"></div>
+    </main>
     
 
     <div class="flex w-screen h-20 justify-center items-center bottom-6 fixed">
@@ -26,43 +28,30 @@
         </div>
     </div>
 
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 <script>
-    // Mendapatkan elemen video
-    const video = document.getElementById('qr-video');
+    const scanner = new Html5QrcodeScanner('reader', {
+        qrbox: {
+            width : 250,
+            height : 250,
+        },
+        fps: 20,
+    });
 
-    // Meminta izin untuk menggunakan kamera
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-      .then((stream) => {
-        video.srcObject = stream;
-        video.play();
-      })
-      .catch((err) => console.error('Error accessing camera:', err));
+    scanner.render(success, error);
 
-    // Membuat objek QRCode untuk menangkap hasil QR code
-    const qrcode = new QRCode(document.getElementById('qr-result'));
+    function success(result){
+        document.getElementById('result').innerHTML =  `
+            <h2>Success!</h2>
+            <p><a href="${result}">${result}</a></p>
+        `;
+        
+        scanner.clear();
+        document.getElementById('reader').remove();
+    }
 
-    // Mendeteksi QR code pada setiap frame video
-    const scanQRCode = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-      if (code) {
-        qrcode.clear();
-        qrcode.makeCode(code.data);
-      }
-
-      requestAnimationFrame(scanQRCode);
-    };
-
-    // Memanggil fungsi scanQRCode untuk pertama kali
-    scanQRCode();
+    function error(err){
+        console.error(err);
+    }
 
 </script>
 
