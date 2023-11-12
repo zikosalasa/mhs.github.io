@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="dist/output.css">
     <script src="https://kit.fontawesome.com/227a57dfb0.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -26,20 +25,29 @@
     </div>
 
 <script>
-    const scanner = new Html5QrcodeScanner(
-    "qr-code-scanner", // ID elemen HTML placeholder
-    { fps: 10, qrbox: 250 } // Opsi konfigurasi
-    );
+    // Dapatkan elemen placeholder
+    const scannerElement = document.getElementById("qr-code-scanner");
 
-    scanner.render(onScanSuccess, onScanError);
+    // Akses kamera perangkat
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+    // Buat elemen video untuk menampilkan feed kamera
+    const videoElement = document.createElement("video");
+    videoElement.srcObject = stream;
+    videoElement.play();
 
-    function onScanSuccess(decodedText, decodedResult) {
-      console.log("Hasil pemindaian:", decodedText);
-    }
+    // Tambahkan video ke elemen placeholder
+    scannerElement.appendChild(videoElement);
 
-    function onScanError(error) {
-      console.error("Kesalahan pemindaian:", error);
-    }
+    // Mulai mendeteksi kode QR
+    const qrScanner = new QrScanner(videoElement, (result) => {
+          console.log("Hasil pemindaian:", result);
+        });
+    qrScanner.start();
+      })
+      .catch((error) => {
+        console.error("Kesalahan akses kamera:", error);
+      });
 </script>
 
 </body>
