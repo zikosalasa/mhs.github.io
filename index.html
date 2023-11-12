@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="dist/output.css">
     <script src="https://kit.fontawesome.com/227a57dfb0.js" crossorigin="anonymous"></script>
-    <script src="./node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
     <title>Document</title>
 </head>
 <body>
 
-    <main class="flex justify-center items-center">
-        <div class="w-[600px]" id="reader"></div>
-        <div class="text-center text-xl" id="result"></div>
-    </main>
+    <div id="qr-code-scanner" class"w-[300px] h-[300px]"></div>
     
 
     <div class="flex w-screen h-20 justify-center items-center bottom-6 fixed">
@@ -29,30 +26,20 @@
     </div>
 
 <script>
-    const scanner = new Html5QrcodeScanner('reader', {
-        qrbox: {
-            width : 250,
-            height : 250,
-        },
-        fps: 20,
-    });
+    const scanner = new Html5QrcodeScanner(
+    "qr-code-scanner", // ID elemen HTML placeholder
+    { fps: 10, qrbox: 250 } // Opsi konfigurasi
+    );
 
-    scanner.render(success, error);
+    scanner.render(onScanSuccess, onScanError);
 
-    function success(result){
-        document.getElementById('result').innerHTML =  `
-            <h2>Success!</h2>
-            <p><a href="${result}">${result}</a></p>
-        `;
-        
-        scanner.clear();
-        document.getElementById('reader').remove();
+    function onScanSuccess(decodedText, decodedResult) {
+      console.log("Hasil pemindaian:", decodedText);
     }
 
-    function error(err){
-        console.error(err);
+    function onScanError(error) {
+      console.error("Kesalahan pemindaian:", error);
     }
-
 </script>
 
 </body>
