@@ -15,7 +15,7 @@
     <div class="flex justify-center items-center">
         <div id="my-qr-reader" class="w-[500px]"></div>
     </div>
-    <a href="" id="href">absen</a>
+    <a href="" id="url">absen</a>
 
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
@@ -28,7 +28,7 @@
         }   
 
         domReady(function(){
-            var button = document.getElementById('href');
+            var url = document.getElementById('url');
             var myqr = document.getElementById('your-qr-result');
             var lastResult,countResults = 0;
 
@@ -38,7 +38,7 @@
                     ++countResults;
                     lastResult = decodeText;
 
-                    button.setAttribute('href', decodeText);
+                    url.setAttribute('href', decodeText);
 
                     myqr.innerHTML = `hasil scan : ${countResults} : ${decodeText}`
 
