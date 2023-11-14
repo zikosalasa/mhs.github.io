@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <div id="your-qr-result"></div>
+    <a id="your-qr-result"></a>
     <h1>scan Qr html</h1>
     <div class="flex justify-center items-center">
         <div id="my-qr-reader" class="w-[500px]"></div>
@@ -36,9 +36,6 @@
                     ++countResults;
                     lastResult = decodeText;
 
-                    // alert u qr here
-                    alert("you qr is : " + decodeText,decodeResult)
-                    myqr.innerHTML = ` you scan ${countResults} : ${decodeText}`
                 }
             }
 
