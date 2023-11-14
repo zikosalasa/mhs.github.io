@@ -10,10 +10,11 @@
 </head>
 <body>
 
+    <div class="flex-col justify-center items-center">
+        <video src="" id="preview"></video>
 
-    <video src="" id="preview"></video>
-
-    <button onclick="startScan()">Start Scan</button>
+        <button onclick="startScan()">Start Scan</button>
+    </div>  
 
     
 
@@ -38,7 +39,7 @@
         // Memeriksa apakah perangkat memiliki dukungan getUserMedia
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             // Mengakses kamera
-            navigator.mediaDevices.getUserMedia({ video: true })
+            navigator.mediaDevices.getUserMedia({ video: {facingMode: 'environment'} })
             .then(function (stream) {
                 // Menetapkan aliran video ke elemen video
                 video.srcObject = stream;
