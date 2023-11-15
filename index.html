@@ -10,12 +10,18 @@
 </head>
 <body>
 
-    <a id="your-qr-result"></a>
-    <h1>scan Qr html</h1>
+    
+    
+
     <div class="flex justify-center items-center">
-        <div id="my-qr-reader" class="w-[500px]"></div>
+        <div class="flex-row justify-center items-center">
+            <div id="my-qr-reader" class="mt-5"></div>
+            <!-- <a href="" id="url" class="">absen</a> -->
+            <a id="your-qr-result"></a>
+        </div>
+        
     </div>
-    <a href="" id="url">absen</a>
+    
 
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
@@ -46,7 +52,7 @@
             }
 
             var htmlscanner = new Html5QrcodeScanner(
-                "my-qr-reader", {fps:10,qrbox:500})
+                "my-qr-reader", {fps:10,qrbox:250})
 
             htmlscanner.render(onScanSuccess)
         })
