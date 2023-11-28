@@ -15,15 +15,31 @@
 
 <body>
 
-   <div class="flex justify-center items-center mt-10">
-      <h1 class="font-semibold">SILAHKAN SCAN UNTUK ABSEN</h1>
+   <div id="menu" class="bg-slate-200 w-32 h-screen rounded-r-xl fixed top-0 bottom-0 left-0 z-50 transform ease-in-out duration-1000 transition-transform -translate-x-full">
+      <div class="mt-10 p-3">
+         <div class="flex justify-center items-center p-2 rounded-2xl shadow-lg bg-white mb-3">
+            <a href="krs.html">KRS</a>
+         </div>
+         <div class="flex justify-center items-center p-2 rounded-2xl shadow-lg bg-white mb-3">
+            <a href="index.html">Absen</a>
+         </div>
+         <div class="flex justify-center items-center p-2 rounded-2xl shadow-lg bg-white mb-3">
+            <a href="">keluar</a>
+         </div>
+      </div>
    </div>
+   <button id="burger" class="bg-white p-4 transform ease-in-out duration-1000 transition-transform"><i class="fa-solid fa-bars text-2xl self-end"></i></button>
 
-   <div class="flex justify-center items-center">
-      <div id="my-qr-reader" class="mt-5 w-1/2"></div>
-   </div>
+   
+      <div class="flex justify-center items-center pt-3">
+         <h1 class="font-semibold">SILAHKAN SCAN UNTUK ABSEN</h1>
+      </div>
 
-    <div id="detail" class="fixed bottom-0 left-0 right-0 h-96 rounded-t-2xl text-xl border border-t-2 transform ease-in-out duration-1000 transition-transform translate-y-full">
+      <div class="flex justify-center items-center">
+         <div id="my-qr-reader" class="mt-5 w-1/2"></div>
+      </div>
+
+    <div id="detail" class="fixed bottom-0 left-0 right-0 h-96 bg-white rounded-t-2xl text-xl border border-t-2 transform ease-in-out duration-1000 transition-transform translate-y-full">
       <div class="flex justify-center items-center w-full">
          <form action="" method="post" class="mt-10">
             <div class="flex mb-2">
@@ -42,10 +58,22 @@
          </form>
       </div>
     </div>
-
    
 
    <script src="https://unpkg.com/html5-qrcode"></script>
+
+   <script>
+      var menu = document.getElementById('menu');
+      var burger = document.getElementById('burger');
+
+      burger.addEventListener('click', function (){
+         menu.classList.toggle('-translate-x-full');
+         burger.classList.toggle('translate-x-32');
+         // menu.classList.toggle('fixed');
+         // menu.classList.toggle('float-left');
+
+      });
+   </script>
    
    <script>
    function domReady(fn) {
