@@ -39,7 +39,7 @@
          <div id="my-qr-reader" class="mt-5 w-1/2"></div>
       </div>
 
-    <div id="detail" class="fixed bottom-0 left-0 right-0 h-96 bg-white rounded-t-2xl text-xl border border-t-2 transform ease-in-out duration-1000 transition-transform ">
+    <div id="detail" class="fixed bottom-0 left-0 right-0 h-96 bg-white rounded-t-2xl text-xl border border-t-2 transform ease-in-out duration-1000 transition-transform translate-y-full">
          <form action="" method="post" class="mt-10">
             
             <div class="flex justify-center mb-2">
@@ -96,8 +96,7 @@
 
             jadwal.setAttribute('value', decodeText);
 
-            detail.classList.remove('translate-y-full');
-            detail.classList.add('translate-y-0');
+            detail.classList.toggle('translate-y-full');
 
             // myqr.innerHTML = `hasil scan : ${countResults} : ${decodeText}`
 
